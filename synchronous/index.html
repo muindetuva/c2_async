@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Processing Demo</title>
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+        }
+    </style>
+
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <h1>Image Processing Demo</h1>
+
+    <button onclick="processAndEnhance()">Process Image</button>
+    <button onclick="updateCounter()">Click me! <span id="counter">0</span></button>
+    <input type="text" placeholder="Try typing here...">
+
+    <div id="result"></div>
+
+    <script>
+        let count = 0;
+
+        // Simulate long processing with actual CPU work
+        function processImage() {
+
+            let startingTime = Date.now();
+            // Create a loop that will run for 5 seconds
+            // Date.now() - startingTime is less 5000 keep on looping
+            while (Date.now() - startingTime < 10000) {
+                // Assume complex computation
+            }
+
+            console.log("Done with processing image")
+
+            return "processed_image_data"; // Assume this is the processed image
+        }
+
+
+        // Functions that depend on the processed data
+        function enhanceImage(imageData) {
+            console.log("Enhancing Image")
+            return imageData + "_enhanced"; // Assume this is the enhanced image
+        }
+
+        function saveImage(image) {
+            console.log("Saving Image")
+            return "Saved: " + image; // Assume this is the locaton of the saved image
+        }
+
+        // Synchronous version - Everything blocks!
+        function processAndEnhance() {
+            document.getElementById('result').textContent = 'Working...';
+
+            // This blocks everything while it runs
+            console.log("Before the start of processing")
+            const processedImage = processImage(); // Stop here until processing is done
+            const enhancedImage = enhanceImage(processedImage);
+            const savedResult = saveImage(enhancedImage);
+
+            document.getElementById('result').textContent = savedResult;
+        }
+
+        function updateCounter() {
+            count++;
+            document.getElementById('counter').textContent = count;
+        }
+    </script>
+</body>
+
+</html>

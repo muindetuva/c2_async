@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Processing Demo</title>
+    <style>
+        body { padding: 20px; font-family: Arial, sans-serif; }
+        button { 
+            padding: 10px 20px; 
+            margin: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Processing Demo</h1>
+    
+    <button onclick="processAndEnhance()">Process Image</button>
+    <button onclick="updateCounter()">Click me! <span id="counter">0</span></button>
+    <input type="text" placeholder="Try typing here...">
+
+    <div id="result"></div>
+
+    <script>
+        let count = 0;
+
+        function processImage() {
+            document.getElementById('result').textContent = 'Processing...';
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve("processed_image_data");
+                }, 3000);
+            });
+        }
+
+        function enhanceImage(imageData) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(imageData + "_enhanced");
+                }, 2000);
+            });
+        }
+
+        function saveImage(enhancedData) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve("Saved: " + enhancedData);
+                }, 1000);
+            });
+        }
+
+        async function processAndEnhance() {
+            try {
+                const processedImage = await processImage();
+                const enhancedImage = await enhanceImage(processedImage);
+                const finalResult = await saveImage(enhancedImage);
+                document.getElementById('result').textContent = finalResult;
+            } catch(error) {
+                document.getElementById('result').textContent = 'Error: ' + error;
+            }
+        }
+
+        function updateCounter() {
+            count++;
+            document.getElementById('counter').textContent = count;
+        }
+    </script>
+</body>
+</html>

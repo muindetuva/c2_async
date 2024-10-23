@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Processing Demo</title>
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+        }
+    </style>
+
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <h1>Image Processing Demo</h1>
+
+    <button onclick="processAndEnhance()">Process Image</button>
+    <button onclick="updateCounter()">Click me! <span id="counter">0</span></button>
+    <input type="text" placeholder="Try typing here...">
+
+    <div id="result"></div>
+
+    <script>
+        let count = 0;
+
+        function processImage(callback) {
+            document.getElementById('result').textContent = 'Processing...';
+            setTimeout(() => {
+                console.log("Processing Image")
+                callback("processed_image_data");
+            }, 5000);
+        }
+
+        function enhanceImage(imageData, callback) {
+            console.log("Enhancing Image")
+            callback(imageData + "_enhanced");
+
+        }
+
+        function saveImage(enhancedData, callback) {
+            console.log("Saving the image")
+            callback("Saved: " + enhancedData);
+        }
+
+        function processAndEnhance() {
+            processImage(function (processedImage) {
+                enhanceImage(processedImage, function (enhancedImage) {
+                    saveImage(enhancedImage, function (finalResult) {
+                        document.getElementById('result').textContent = finalResult;
+                    });
+                });
+            });
+        }
+
+        function updateCounter() {
+            count++;
+            document.getElementById('counter').textContent = count;
+        }
+    </script>
+</body>
+
+</html>
